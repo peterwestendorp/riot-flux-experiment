@@ -1,26 +1,26 @@
+document.write('<script src="http://localhost:8080/vendor/riotcontrol.js"></script>');
+
 // Create mounting point in DOM
-document.body.innerHTML = '<todo></todo>';
+document.body.innerHTML = '<slidedeck></slidedeck>';
 
 // Define required tag module
-var todo = riot.mount('todo', {items: []})[0];
+var slidedeck = riot.mount('slidedeck')[0];
 
 // Test to your heart's content!
-describe('todo', function() {
+describe('slidedeck', function() {
 
-    it('should have an add function defined', function () {
-        expect(todo.add).toBeDefined();
-    });
+    // it('should have an add function defined', function () {
+    //     expect(todo.add).toBeDefined();
+    // });
 
     it('add function should add a todo item to this.items', function () {
-        var initCount = todo.items.length;
+        var initCount = slidedeck.slides.length;
 
-        todo.text = "Add a new Todo item";
+        slidedeck.add();
 
-        todo.add();
+        slidedeck.update();
 
-        todo.update();
-
-        expect(todo.items.length).toEqual(initCount + 1);
+        expect(slidedeck.slides.length).toEqual(initCount + 1);
     })
 });
 

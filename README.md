@@ -1,3 +1,7 @@
-npm install riot -g
+npm install
 
 riot -w tags src/tags
+
+npm test
+
+
