@@ -1,3 +1,0 @@
-<app>
-	<slidedeck></slidedeck>
-</app>
