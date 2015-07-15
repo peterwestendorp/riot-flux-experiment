@@ -4,7 +4,7 @@ module.exports = function(karma) {
   karma.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '../',
+    basePath: '',
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -12,11 +12,11 @@ module.exports = function(karma) {
 
     // list of files / patterns to load in the browser
     files: [
-      '/Users/peterwestendorp/Sites/riot-flux-experiment/node_modules/riot/riot.js',
-      '/Users/peterwestendorp/Sites/riot-flux-experiment/node_modules/riotcontrol/riotcontrol.js',
-      '/Users/peterwestendorp/Sites/riot-flux-experiment/src/slidestore.js',
-      '/Users/peterwestendorp/Sites/riot-flux-experiment/**/*.tag',
-      '/Users/peterwestendorp/Sites/riot-flux-experiment/test/*.spec.js',
+      'node_modules/riot/riot.js',
+      'node_modules/riotcontrol/riotcontrol.js',
+      'src/slidestore.js',
+      '**/*.tag',
+      'test/*.spec.js',
     ],
 
     // list of files to exclude
