@@ -1,5 +1,4 @@
 <slidedeck>
-  <!-- <li riot-tag="slide" each={slide, i in slides }></li> -->
   <slide each={slide, i in slides } class="{active: currentSlide == i}"></slide>
 
   <button onclick={ toggleEditMode } class={ active:inEditMode }>Edit mode</button>
@@ -10,17 +9,19 @@
   <script>
     var self = this
 
-    self.inEditMode = false
-    self.currentSlide = 0
+    init(){
+      self.inEditMode = false
+      self.currentSlide = 0
 
-    self.on('mount', function() {
-      RiotControl.trigger('slides:init')
-    })
+      self.on('mount', function() {
+        RiotControl.trigger('slides:init')
+      })
 
-    RiotControl.on('slides:changed', function(slides) {
-      self.slides = slides
-      self.update()
-    })
+      RiotControl.on('slides:changed', function(slides) {
+        self.slides = slides
+        self.update()
+      })
+    }
 
     add(){
       RiotControl.trigger('slides:add')
@@ -42,6 +43,8 @@
         self.currentSlide++
       }
     }
+
+    self.init()
   </script>
 
   <style>
