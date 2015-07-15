@@ -1,10 +1,10 @@
 <slidedeck>
-  <slide each={slide, i in slides } class="{active: currentSlide == i}"></slide>
+  <slide each="{slide, i in slides }" class="{active: currentSlide == i}"></slide>
 
-  <button onclick={ toggleEditMode } class={ active:inEditMode }>Edit mode</button>
-  <button if={ inEditMode } onclick={ add }>Add</button>
-  <button onclick={showPrev}>Prev</button>
-  <button onclick={showNext}>Next</button>
+  <button onclick="{ toggleEditMode }" class="{ active:inEditMode }">Edit mode</button>
+  <button if="{ inEditMode }" onclick="{ add }">Add</button>
+  <button onclick="{showPrev}">Prev</button>
+  <button onclick="{showNext}">Next</button>
 
   <script>
     var self = this
