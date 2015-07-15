@@ -12,8 +12,11 @@ module.exports = function(karma) {
 
     // list of files / patterns to load in the browser
     files: [
-        '/Users/peterwestendorp/Sites/riot-flux-experiment/**/*.tag',
-        '/Users/peterwestendorp/Sites/riot-flux-experiment/test/*.spec.js',
+      '/Users/peterwestendorp/Sites/riot-flux-experiment/node_modules/riot/riot.js',
+      '/Users/peterwestendorp/Sites/riot-flux-experiment/node_modules/riotcontrol/riotcontrol.js',
+      '/Users/peterwestendorp/Sites/riot-flux-experiment/src/slidestore.js',
+      '/Users/peterwestendorp/Sites/riot-flux-experiment/**/*.tag',
+      '/Users/peterwestendorp/Sites/riot-flux-experiment/test/*.spec.js',
     ],
 
     // list of files to exclude
