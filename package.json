@@ -1,0 +1,30 @@
+{
+  "name": "riot-flux-experiment",
+  "version": "1.0.0",
+  "description": "npm install riot -g",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/peterwestendorp/riot-flux-experiment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterwestendorp/riot-flux-experiment/issues"
+  },
+  "homepage": "https://github.com/peterwestendorp/riot-flux-experiment",
+  "devDependencies": {
+    "karma": "^0.12.0",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.1.5",
+    "karma-riot": "^0.1.0",
+    "riot": "^2.0.7",
+    "riotcontrol": "0.0.1"
+  }
+}
