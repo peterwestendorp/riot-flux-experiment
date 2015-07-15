@@ -1,7 +1,7 @@
 <slidedeck>
   <ul>
     <li each={slide, i in slides }
-        class={ hidden: currentSlide < i, slide: true }
+        class={ active: currentSlide == i, slide: true }
         style="background-color: { slide.color }">
       <h3 contenteditable={ inEditMode } oninput={ editTitle }>{ slide.title }</h3>
       <p contenteditable={ inEditMode } oninput={ editContent }>{ slide.content }</p>
@@ -66,6 +66,14 @@
   </script>
 
   <style scoped>
+    @-webkit-keyframes fadein {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
     ul,
     ul > li {
       position: absolute;
@@ -78,11 +86,11 @@
     ul > li {
       text-align: center;
       color: #FFF;
-      -webkit-transition: opacity .5s ease-in-out;
+      z-index: 0;
     }
-    ul > li.hidden {
-      opacity: 0;
-      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    ul > li.active {
+      z-index: 1;
+      -webkit-animation: fadein 1s;
     }
     ul > li h3 {
       font-size: 75px;
