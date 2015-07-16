@@ -1,21 +1,18 @@
 <slidedeck>
-  <slide each="{slide, i in slides }" class="{active: currentSlide == i}"></slide>
+  <slide each="{slide, i in slides }" class="{active: getCurrentSlideIndex() == i}"></slide>
 
   <button onclick="{ toggleEditMode }"
           class="{ active: getEditMode() }">Edit mode</button>
-  <button if="{ inEditMode }" onclick="{ add }">Add</button>
+  <button if="{ getEditMode() }" onclick="{ add }">Add</button>
   <button onclick="{showPrev}">Prev</button>
   <button onclick="{showNext}">Next</button>
 
   <script>
     var self = this
 
-    init(){
-      self.currentSlide = 0
-    }
-
     self.on('mount', function(){
       self.getSlides()
+      self.getCurrentSlideIndex()
     })
 
     slideStore.on('slides:changed', function(){
@@ -27,6 +24,10 @@
       self.update()
     }
 
+    getCurrentSlideIndex(){
+      return slideStore.getCurrentSlideIndex()
+    }
+
     getEditMode(){
       return slideStore.getEditMode()
     }
@@ -35,7 +36,6 @@
       slideDispatcher.dispatch({
         actionType: 'slides:add'
       });
-      self.currentSlide = self.slides.length-1
     }
 
     toggleEditMode() {
@@ -45,18 +45,16 @@
     }
 
     showPrev(){
-      if(self.currentSlide){
-        self.currentSlide--
-      }
+      slideDispatcher.dispatch({
+        actionType: 'slides:prev'
+      })
     }
 
     showNext(){
-      if(self.currentSlide < self.slides.length-1){
-        self.currentSlide++
-      }
+      slideDispatcher.dispatch({
+        actionType: 'slides:next'
+      })
     }
-
-    self.init()
   </script>
 
   <style>

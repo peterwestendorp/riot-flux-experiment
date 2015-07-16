@@ -4,6 +4,7 @@ function SlideStore(slideDispatcher) {
   var self = this;
 
   self.inEditMode = false;
+  self.currentSlideIndex = 0;
 
   // SET SLIDES
   self.slides = JSON.parse(localStorage.getItem('slides')) || [
@@ -21,11 +22,17 @@ function SlideStore(slideDispatcher) {
     return self.inEditMode;
   };
 
+  // GET CURRENT SLIDE INDEX
+  self.getCurrentSlideIndex = function(){
+    return self.currentSlideIndex;
+  };
+
   slideDispatcher.register(function(payload) {
     switch(payload.actionType){
       // ADD SLIDE
       case 'slides:add':
         self.slides.push({title: 'New Slide', content: 'Lorum Ipsum...', color: '#0000FF'});
+        self.currentSlideIndex = self.slides.length-1;
         self.trigger('slides:changed', self.slides);
         break;
 
@@ -46,8 +53,23 @@ function SlideStore(slideDispatcher) {
         self.trigger('slides:changed', self.slides);
         break;
 
+      // EDIT MODE TOGGLE
       case 'slides:toggle-edit-mode':
         self.inEditMode = !self.inEditMode;
+        break;
+
+      // PREVIOUS SLIDE
+      case 'slides:prev':
+        if(self.getCurrentSlideIndex()){
+          self.currentSlideIndex--;
+        }
+        break;
+
+      // NEXT SLIDE
+      case 'slides:next':
+        if(self.getCurrentSlideIndex() < self.slides.length-1){
+          self.currentSlideIndex++;
+        }
         break;
 
     }
