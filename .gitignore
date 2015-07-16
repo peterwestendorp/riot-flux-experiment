@@ -1,2 +1,3 @@
 node_modules/
-src/tags/
+build/
+npm-debug.log

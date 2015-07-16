@@ -19,14 +19,9 @@
 
     <script src="vendor/riot.js"></script>
     <script src="vendor/riotcontrol.js"></script>
-    <script src="src/slidestore.js"></script>
-    <script src="src/tags/slidedeck.js"></script>
-    <script src="src/tags/slide.js"></script>
-
-    <script>
-      var slideStore = new SlideStore() // Create a store instance.
-      RiotControl.addStore(slideStore) // Register the store in central dispatch.
-      riot.mount('slidedeck')
-    </script>
+    <script src="app/stores/slidestore.js"></script>
+    <script src="build/tags/slidedeck.js"></script>
+    <script src="build/tags/slide.js"></script>
+    <script src="build/app.js"></script>
   </body>
 </html>
