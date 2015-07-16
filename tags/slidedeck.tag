@@ -1,7 +1,8 @@
 <slidedeck>
   <slide each="{slide, i in slides }" class="{active: currentSlide == i}"></slide>
 
-  <button onclick="{ toggleEditMode }" class="{ active:inEditMode }">Edit mode</button>
+  <button onclick="{ toggleEditMode }"
+          class="{ active: getEditMode() }">Edit mode</button>
   <button if="{ inEditMode }" onclick="{ add }">Add</button>
   <button onclick="{showPrev}">Prev</button>
   <button onclick="{showNext}">Next</button>
@@ -10,26 +11,37 @@
     var self = this
 
     init(){
-      self.inEditMode = false
       self.currentSlide = 0
+    }
 
-      self.on('mount', function() {
-        RiotControl.trigger('slides:init')
-      })
+    self.on('mount', function(){
+      self.getSlides()
+    })
 
-      RiotControl.on('slides:changed', function(slides) {
-        self.slides = slides
-        self.update()
-      })
+    slideStore.on('slides:changed', function(){
+      self.getSlides()
+    })
+
+    getSlides(){
+      self.slides = slideStore.getSlides()
+      self.update()
+    }
+
+    getEditMode(){
+      return slideStore.getEditMode()
     }
 
     add(){
-      RiotControl.trigger('slides:add')
+      slideDispatcher.dispatch({
+        actionType: 'slides:add'
+      });
       self.currentSlide = self.slides.length-1
     }
 
     toggleEditMode() {
-      self.inEditMode = !self.inEditMode
+      slideDispatcher.dispatch({
+        actionType: 'slides:toggle-edit-mode'
+      })
     }
 
     showPrev(){

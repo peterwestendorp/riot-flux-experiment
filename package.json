@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "start": "watchify app.js node_modules/flux/lib/Dispatcher.js -o build/app.js && riot -w tags build/tags",
+    "start": "riot -w tags build/tags",
     "test": "karma start"
   },
   "repository": {

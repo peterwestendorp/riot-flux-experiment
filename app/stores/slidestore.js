@@ -1,7 +1,9 @@
-function SlideStore() {
+function SlideStore(slideDispatcher) {
   riot.observable(this); // Riot event emitter
 
   var self = this;
+
+  self.inEditMode = false;
 
   // SET SLIDES
   self.slides = JSON.parse(localStorage.getItem('slides')) || [
@@ -9,36 +11,46 @@ function SlideStore() {
     { title: 'Slide 2', content: 'Content 2', color: '#00FF00' }
   ];
 
-  // ADD SLIDE
-  self.on('slides:add', function(newSlide) {
-    self.slides.push({title: 'New Slide',content: 'Lorum Ipsum...',color: '#0000FF'});
-    self.trigger('slides:changed', self.slides);
-  });
+  // GET SLIDES
+  self.getSlides = function(){
+    return self.slides;
+  };
 
-  // REMOVE SLIDE
-  self.on('slides:remove', function(i) {
-    self.slides.splice(i, 1);
-    self.trigger('slides:changed', self.slides);
-  });
+  // GET EDITMODE
+  self.getEditMode = function(){
+    return self.inEditMode;
+  };
 
-  // EDIT SLIDE
-  self.on('slides:edit:title', function(i, newTitle) {
-    if(newTitle){
-      self.slides[i]['title'] = newTitle;
+  slideDispatcher.register(function(payload) {
+    switch(payload.actionType){
+      // ADD SLIDE
+      case 'slides:add':
+        self.slides.push({title: 'New Slide', content: 'Lorum Ipsum...', color: '#0000FF'});
+        self.trigger('slides:changed', self.slides);
+        break;
+
+      // REMOVE SLIDE
+      case 'slides:remove':
+        self.slides.splice(payload.index, 1);
+        self.trigger('slides:changed', self.slides);
+        break;
+
+      // EDIT SLIDE
+      case 'slides:edit:title':
+        self.slides[payload.index]['title'] = payload.title;
+        self.trigger('slides:changed', self.slides);
+        break;
+
+      case 'slides:edit:content':
+        self.slides[payload.index]['content'] = payload.content;
+        self.trigger('slides:changed', self.slides);
+        break;
+
+      case 'slides:toggle-edit-mode':
+        self.inEditMode = !self.inEditMode;
+        break;
+
     }
-    self.trigger('slides:changed', self.slides);
-  });
-
-  self.on('slides:edit:content', function(i, newContent) {
-    if(newContent){
-      self.slides[i]['content'] = newContent;
-    }
-    self.trigger('slides:changed', self.slides);
-  });
-
-  // INIT SLIDES
-  self.on('slides:init', function() {
-    self.trigger('slides:changed', self.slides);
   });
 
   // STORE SLIDES
@@ -46,4 +58,5 @@ function SlideStore() {
     localStorage.setItem('slides', JSON.stringify(slides));
   });
 
+  return self;
 }

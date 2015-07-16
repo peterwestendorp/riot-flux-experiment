@@ -6,16 +6,27 @@
   <script>
     editTitle(e){
       var newTitle = e.target.innerHTML
-      RiotControl.trigger('slides:edit:title', e.item.i, newTitle)
+      slideDispatcher.dispatch({
+        actionType: 'slides:edit:title',
+        index: e.item.i,
+        title: newTitle
+      });
     }
 
     editContent(e){
       var newContent = e.target.innerHTML
-      RiotControl.trigger('slides:edit:content', e.item.i, newContent)
+      slideDispatcher.dispatch({
+        actionType: 'slides:edit:content',
+        index: e.item.i,
+        content: newContent
+      });
     }
 
     removeSlide(e){
-      RiotControl.trigger('slides:remove', e.item.i)
+      slideDispatcher.dispatch({
+        actionType: 'slides:remove',
+        index: e.item.i
+      });
     }
   </script>
 
