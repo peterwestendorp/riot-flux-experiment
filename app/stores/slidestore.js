@@ -1,16 +1,20 @@
 function SlideStore(slideDispatcher) {
   riot.observable(this); // Riot event emitter
 
-  var self = this;
+  var self = this,
+      slideFactory = [
+        { title: 'Slide 1', content: 'Content 1', color: '#FF0000' },
+        { title: 'Slide 2', content: 'Content 2', color: '#00FF00' }
+      ];
 
   self.inEditMode = false;
   self.currentSlideIndex = 0;
 
-  // SET SLIDES
-  self.slides = JSON.parse(localStorage.getItem('slides')) || [
-    { title: 'Slide 1', content: 'Content 1', color: '#FF0000' },
-    { title: 'Slide 2', content: 'Content 2', color: '#00FF00' }
-  ];
+  // GET SLIDES FROM FIREBASE
+  firebaseRef.child("slides").on("value", function(snapshot) {
+    self.slides = snapshot.val() || slideFactory;
+    self.trigger('slides:loaded', self.slides);
+  });
 
   // GET SLIDES
   self.getSlides = function(){
@@ -27,11 +31,13 @@ function SlideStore(slideDispatcher) {
     return self.currentSlideIndex;
   };
 
-  slideDispatcher.register(function(payload) {
+  self.dispatchToken = slideDispatcher.register(function(payload) {
     switch(payload.actionType){
       // ADD SLIDE
       case 'slides:add':
+        // slideDispatcher.waitFor([self.loadedDispatchToken]);
         self.slides.push({title: 'New Slide', content: 'Lorum Ipsum...', color: '#0000FF'});
+
         self.currentSlideIndex = self.slides.length-1;
         self.trigger('slides:changed', self.slides);
         break;
@@ -77,7 +83,15 @@ function SlideStore(slideDispatcher) {
 
   // STORE SLIDES
   self.on('slides:changed', function(slides){
-    localStorage.setItem('slides', JSON.stringify(slides));
+    firebaseRef.set({
+      slides: self.slides
+    }, function(error) {
+      if (error) {
+        console.error("Data could not be saved." + error);
+      } else {
+        console.log("Data saved successfully.");
+      }
+    });
   });
 
   return self;

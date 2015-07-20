@@ -15,6 +15,10 @@
       self.getCurrentSlideIndex()
     })
 
+    slideStore.on('slides:loaded', function(){
+      self.getSlides()
+    })
+
     slideStore.on('slides:changed', function(){
       self.getSlides()
     })
