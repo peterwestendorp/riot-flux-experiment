@@ -10,13 +10,9 @@
   <script>
     var self = this
 
-    self.on('mount', function(){
-      self.getSlides()
-      self.getCurrentSlideIndex()
-    })
-
     slideStore.on('slides:loaded', function(){
       self.getSlides()
+      self.getCurrentSlideIndex()
     })
 
     slideStore.on('slides:changed', function(){
@@ -29,11 +25,11 @@
     }
 
     getCurrentSlideIndex(){
-      return slideStore.getCurrentSlideIndex()
+      return slideDeckStore.getCurrentSlideIndex()
     }
 
     getEditMode(){
-      return slideStore.getEditMode()
+      return slideDeckStore.getEditMode()
     }
 
     add(){
