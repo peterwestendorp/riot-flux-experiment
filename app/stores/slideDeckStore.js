@@ -43,6 +43,7 @@ function SlideDeckStore(slideDispatcher, slideStore) {
         }
         break;
 
+      // REMOVE SLIDE
       case 'slides:remove':
         self.currentSlideIndex--;
         break;
