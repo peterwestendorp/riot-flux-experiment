@@ -11,18 +11,15 @@
     var self = this
 
     slideStore.on('slides:loaded', function(){
-      self.getSlides()
+      self.slides = slideStore.getSlides()
       self.getCurrentSlideIndex()
+      self.update()
     })
 
     slideStore.on('slides:changed', function(){
-      self.getSlides()
-    })
-
-    getSlides(){
       self.slides = slideStore.getSlides()
       self.update()
-    }
+    })
 
     getCurrentSlideIndex(){
       return slideDeckStore.getCurrentSlideIndex()
