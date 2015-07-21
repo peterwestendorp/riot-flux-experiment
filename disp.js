@@ -35,7 +35,7 @@ var disp = function(){
     obj = {
       id: "ID_"+_handleID,
       callback: cb,
-      waitUntilDone: deferred.promise,
+      promise: deferred.promise,
       done: deferred.resolve,
       error: deferred.reject
     };
@@ -72,15 +72,15 @@ var disp = function(){
     });
   };
 
-  // self.waitFor = function(handles, actionType){
-  //   self.forEach(_registeredCallbacks, function(obj, i){
-  //     self.forEach(handles, function(handle){
-  //       if(handle.id === obj.id){
-  //         console.log("waiting for ", handle.id);
-  //       }
-  //     });
-  //   });
-  // }
+  self.waitFor = function(handles, cb){
+    var promises = [];
+
+    self.forEach(handles, function(handle){
+      promises.push(handle.promise);
+    });
+
+    Q.all(promises).then(cb);
+  };
 
   return self;
 

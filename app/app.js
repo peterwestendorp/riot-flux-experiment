@@ -8,9 +8,11 @@ var d = new disp();
 var first = d.register(function(payload){
   switch(payload.actionType){
     case 'just:doit':
-      second.waitUntilDone.then(function(actionType){
-        console.log("1st i did it!", actionType);
+      d.waitFor([second, third], function(){
+        console.log("waited for second and third, now it's my turn");
+        console.log("1st i did it!");
       });
+
       break;
   }
 });
@@ -19,9 +21,22 @@ var second = d.register(function(payload){
   var self = this;
   switch(payload.actionType){
     case 'just:doit':
-      console.log("2nd i did it!");
-
       setTimeout(function(){
+        console.log("2nd i did it!");
+        self.done(payload.actionType);
+        // second.error('bah');
+      }, 2500);
+
+      break;
+  }
+});
+
+var third = d.register(function(payload){
+  var self = this;
+  switch(payload.actionType){
+    case 'just:doit':
+      setTimeout(function(){
+        console.log("3rd i did it!");
         self.done(payload.actionType);
         // second.error('bah');
       }, 1500);
