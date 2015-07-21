@@ -19,7 +19,7 @@ var Dispatcher = function(){
     }
   };
 
-  // register(str, fn) returns handle
+  // register(fn) returns handle
   self.register = function(cb){
     var deferred = Q.defer(),
         obj;
@@ -38,7 +38,7 @@ var Dispatcher = function(){
     return obj;
   };
 
-  // unregister(handle)
+  // unregister(obj)
   self.unregister = function(handle){
     var location = false;
     self.forEach(_registeredCallbacks, function(obj, i){
@@ -65,6 +65,7 @@ var Dispatcher = function(){
     });
   };
 
+  // waitFor(arr, str, fn)
   self.waitFor = function(handles, actionType, cb){
     var promises = [];
 
