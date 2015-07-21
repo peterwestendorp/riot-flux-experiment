@@ -13,8 +13,8 @@ Initialize
     var disp = new Dispatcher();
 
 
-Register
---------
+.register()
+-----------
 
     disp.register()
 
@@ -37,8 +37,8 @@ Returns a handle:
     var handle = disp.register();
 
 
-Unregister
-----------
+.unregister()
+-------------
 
     disp.register()`
 
@@ -48,8 +48,8 @@ Takes dispatch register handle as argument:
     disp.unregister(handle);
 
 
-Dispatch
---------
+.dispatch()
+-----------
 
     disp.dispatch({actionType: 'justdo:it'})`
 
@@ -61,8 +61,8 @@ You can send additional data with the object literal in the dispatch method:
     });
 
 
-waitFor
--------
+.waitFor()
+----------
 
     disp.waitFor([handle], 'myActionType', callbackFunction);
 
