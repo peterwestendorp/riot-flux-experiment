@@ -1,6 +1,6 @@
 <slide style="background-color: { slide.color }">
-  <h3 contenteditable="{ parent.inEditMode }" oninput="{ editTitle }">{ slide.title }</h3>
-  <p contenteditable="{ parent.inEditMode }" oninput="{ editContent }">{ slide.content }</p>
+  <h3 contenteditable="{ parent.getEditMode() }" oninput="{ editTitle }">{ slide.title }</h3>
+  <p contenteditable="{ parent.getEditMode() }" oninput="{ editContent }">{ slide.content }</p>
   <button if="{ parent.getEditMode() }" onclick="{ removeSlide }">Remove</button>
 
   <script>

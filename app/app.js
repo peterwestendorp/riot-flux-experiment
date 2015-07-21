@@ -8,21 +8,25 @@ var d = new disp();
 var first = d.register(function(payload){
   switch(payload.actionType){
     case 'just:doit':
-      d.waitFor([second, third], function(){
-        console.log("waited for second and third, now it's my turn");
-        console.log("1st i did it!");
-      });
+      console.log("1st i did it!");
 
+      break;
+    case 'think:aboutit':
+      d.waitFor([second, third], payload.actionType, function(){
+        console.log("waited for second and third, now it's my turn:");
+        console.log("1st thought about it");
+      });
       break;
   }
 });
 
 var second = d.register(function(payload){
   var self = this;
+
   switch(payload.actionType){
-    case 'just:doit':
+    case 'think:aboutit':
       setTimeout(function(){
-        console.log("2nd i did it!");
+        console.log("2nd thought about it!");
         self.done(payload.actionType);
         // second.error('bah');
       }, 2500);
@@ -33,10 +37,11 @@ var second = d.register(function(payload){
 
 var third = d.register(function(payload){
   var self = this;
+
   switch(payload.actionType){
-    case 'just:doit':
-      setTimeout(function(){
-        console.log("3rd i did it!");
+    case 'think:aboutit':
+      setTimeout(function henk(){
+        console.log("3rd thought about it!");
         self.done(payload.actionType);
         // second.error('bah');
       }, 1500);
@@ -46,6 +51,11 @@ var third = d.register(function(payload){
 });
 
 // d.unregister(first);
+
+d.dispatch({
+  actionType: 'think:aboutit',
+  foo: 'bar'
+});
 
 d.dispatch({
   actionType: 'just:doit',

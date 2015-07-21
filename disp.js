@@ -5,13 +5,6 @@ var disp = function(){
       _handleID = 0,
       _registeredCallbacks = [];
 
-  // proxy(obj, fn)
-  self.proxy = function(scope, fn){
-    return function(){
-      fn.apply(scope, arguments || []);
-    };
-  };
-
   // forEach(arr, fn, obj)
   self.forEach = function(arr, fn, thisObj) {
     var i = 0, l = arr && arr.length || 0;
@@ -72,14 +65,28 @@ var disp = function(){
     });
   };
 
-  self.waitFor = function(handles, cb){
+  self.waitFor = function(handles, actionType, cb){
     var promises = [];
 
     self.forEach(handles, function(handle){
       promises.push(handle.promise);
     });
 
-    Q.all(promises).then(cb);
+    Q.all(promises).then(function(){
+      var actionTypeMatch = false;
+
+      self.forEach(arguments[0], function(arg){
+        if(arg === actionType){
+          actionTypeMatch = true;
+        }
+      });
+
+      actionTypeMatch ? cb() : console.error("waitFor(); no actionType matches "+
+        "fulfilled promises. \n"+
+        "Pass 'actionType' as argument into '.done()' method.\n"+
+        "And make sure this actionType is calling '.done()' at least once in "+
+        "any 'dispatcher.register()'.");
+    });
   };
 
   return self;
