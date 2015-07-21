@@ -4,7 +4,7 @@ A simple dispatcher that supports async through promises.
 Apart from that the basic idea is very similar to that of Facebook's Dispatcher.js
 
 
-USAGE
+Usage
 =====
 
 Initialize
@@ -12,12 +12,13 @@ Initialize
 
     var disp = new Dispatcher();
 
+
 Register
 --------
 
-`disp.register()`
+    disp.register()
 
-Takes  callback function as argument. Callback is fired EVERYTIME the
+Takes a callback function as argument. Callback is fired EVERYTIME the
 `disp.dispatch()` method is called.
 
 The `payload` argument has an `actionType` property.
@@ -31,9 +32,14 @@ Check for actionType in the callback for specific actions:
       }
     });
 
+Returns a handle:
+
+    var handle = disp.register();
+
 
 Unregister
 ----------
+
     disp.register()`
 
 Takes dispatch register handle as argument:
@@ -44,6 +50,7 @@ Takes dispatch register handle as argument:
 
 Dispatch
 --------
+
     disp.dispatch({actionType: 'justdo:it'})`
 
 You can send additional data with the object literal in the dispatch method:
@@ -56,10 +63,17 @@ You can send additional data with the object literal in the dispatch method:
 
 waitFor
 -------
-fjhfjhf
+
+    disp.waitFor([handle], 'myActionType', callbackFunction);
+
+Takes an array of register handles, an actionType to wait for, and a callback
+function.
+
+If there are no actionTypes in the handle callback that match the given actionType,
+the callback function won't fire.
 
 
-EXAMPLE
+Example
 =======
 
     var slideDispatcher = new Dispatcher();
