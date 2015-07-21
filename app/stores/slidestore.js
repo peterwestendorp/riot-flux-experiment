@@ -1,8 +1,10 @@
-function SlideStore(slideDispatcher) {
+function SlideStore(args) {
   riot.observable(this); // Riot event emitter
 
   var _save,
       self = this,
+      slideDispatcher = args.dispatcher,
+      firebaseRef = args.fbRef,
       slideFactory = [
         { title: 'Slide 1', content: 'Content 1', color: '#FF0000' },
         { title: 'Slide 2', content: 'Content 2', color: '#00FF00' }

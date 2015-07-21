@@ -1,6 +1,6 @@
 "use strict";
 
-var disp = function(){
+var Dispatcher = function(){
   var self = this,
       _handleID = 0,
       _registeredCallbacks = [];
@@ -90,5 +90,4 @@ var disp = function(){
   };
 
   return self;
-
 };

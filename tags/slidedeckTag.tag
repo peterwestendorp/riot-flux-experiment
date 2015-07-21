@@ -9,6 +9,9 @@
 
   <script>
     var self = this
+        slideStore = opts.slidestore
+        slideDeckStore = opts.slidedeckstore
+        slideDispatcher = opts.slidedispatcher
 
     slideStore.on('slides:loaded', function(){
       self.slides = slideStore.getSlides()

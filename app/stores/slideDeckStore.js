@@ -1,7 +1,9 @@
-function SlideDeckStore(slideDispatcher, slideStore) {
+function SlideDeckStore(args) {
   riot.observable(this); // Riot event emitter
 
-  var self = this;
+  var self = this,
+      slideDispatcher = args.dispatcher,
+      slideStore = args.slideStore;
 
   self.inEditMode = false;
   self.currentSlideIndex = 0;
@@ -21,7 +23,6 @@ function SlideDeckStore(slideDispatcher, slideStore) {
 
       // ADD SLIDE
       case 'slides:add':
-        waitFor
         self.currentSlideIndex = slideStore.getSlides().length-1;
         break;
 
