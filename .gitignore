@@ -1,3 +1,4 @@
 node_modules/
 build/tags/
+build/app.js
 npm-debug.log
