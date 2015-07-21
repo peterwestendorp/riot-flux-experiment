@@ -9,24 +9,23 @@
     <script src="vendor/es5-shim.js"></script>
     <script src="vendor/html5-shiv.js"></script>
     <script>
-      html5.addElements('slidedeck')
+      html5.addElements('app')
     </script>
     <![endif]-->
   </head>
 
   <body>
-    <slidedeck></slidedeck>
+    <app></app>
 
+    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
     <script src="vendor/riot.js"></script>
-    <script src="vendor/riotcontrol.js"></script>
-    <script src="src/slidestore.js"></script>
-    <script src="src/tags/slidedeck.js"></script>
-    <script src="src/tags/slide.js"></script>
-
-    <script>
-      var slideStore = new SlideStore() // Create a store instance.
-      RiotControl.addStore(slideStore) // Register the store in central dispatch.
-      riot.mount('slidedeck')
-    </script>
+    <script src="vendor/q.js"></script>
+    <script src="app/Dispatcher.js"></script>
+    <script src="app/stores/slideDeckStore.js"></script>
+    <script src="app/stores/slideStore.js"></script>
+    <script src="build/tags/slidedeckTag.js"></script>
+    <script src="build/tags/slideTag.js"></script>
+    <script src="build/tags/appTag.js"></script>
+    <script src="app/app.js"></script>
   </body>
 </html>

@@ -14,7 +14,7 @@ module.exports = function(karma) {
     files: [
       'node_modules/riot/riot.js',
       'node_modules/riotcontrol/riotcontrol.js',
-      'src/slidestore.js',
+      'app/stores/slideStore.js',
       '**/*.tag',
       'test/*.spec.js',
     ],

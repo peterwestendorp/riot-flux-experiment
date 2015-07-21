@@ -1,0 +1,3 @@
+(function(){
+  riot.mount('app');
+})();
