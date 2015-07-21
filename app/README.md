@@ -72,6 +72,8 @@ function.
 If there are no actionTypes in the handle callback that match the given actionType,
 the callback function won't fire.
 
+This method should only be used by a callback in response to a dispatched payload.
+
 
 Example
 =======
