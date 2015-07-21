@@ -21,6 +21,7 @@ function SlideDeckStore(slideDispatcher, slideStore) {
 
       // ADD SLIDE
       case 'slides:add':
+        waitFor
         self.currentSlideIndex = slideStore.getSlides().length-1;
         break;
 
