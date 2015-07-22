@@ -87,10 +87,10 @@ is waiting for. An actionType that matches the actionType as specified in the
 .error()
 --------
 
-    handle.error();
+    handle.error('data could not be saved');
 
 Used in combination with `.waitFor()`. This rejects the promises `.waitFor()`
-is waiting for.
+is waiting for. Pass in an errormessage string to make debugging easier.
 
 
 
