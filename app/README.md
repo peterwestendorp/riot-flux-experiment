@@ -74,6 +74,26 @@ the callback function won't fire.
 
 This method should only be used by a callback in response to a dispatched payload.
 
+.done()
+-------
+
+    handle.done('justdo:it');
+
+Used in combination with `.waitFor()`. This resolves the promises `.waitFor()`
+is waiting for. An actionType that matches the actionType as specified in the
+`.waitFor()` is required.
+
+
+.error()
+--------
+
+    handle.error();
+
+Used in combination with `.waitFor()`. This rejects the promises `.waitFor()`
+is waiting for.
+
+
+
 
 Example
 =======

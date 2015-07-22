@@ -14,15 +14,21 @@
         slideDispatcher = opts.slidedispatcher
 
     slideStore.on('slides:loaded', function(){
-      self.slides = slideStore.getSlides()
-      self.getCurrentSlideIndex()
-      self.update()
+      self.getSlides()
     })
 
     slideStore.on('slides:changed', function(){
+      self.getSlides()
+    })
+
+    slideDeckStore.on('slides:changed', function(){
+      self.getSlides()
+    })
+
+    getSlides(){
       self.slides = slideStore.getSlides()
       self.update()
-    })
+    }
 
     getCurrentSlideIndex(){
       return slideDeckStore.getCurrentSlideIndex()
