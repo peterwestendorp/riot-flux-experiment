@@ -1,7 +1,7 @@
 Dispatcher.js
 
 A simple dispatcher that supports async through promises.
-Apart from that the basic idea is very similar to that of Facebook's Dispatcher.js
+Apart from that, the basic idea is very similar to that of Facebook's Dispatcher.js
 
 
 Usage
