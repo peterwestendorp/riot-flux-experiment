@@ -87,6 +87,8 @@ var Dispatcher = function(){
         "Pass 'actionType' as argument into '.done()' method.\n"+
         "And make sure this actionType is calling '.done()' at least once in "+
         "any 'dispatcher.register()'.");
+    }, function(error){
+      console.error(".waitFor() promise rejected: ", error);
     });
   };
 

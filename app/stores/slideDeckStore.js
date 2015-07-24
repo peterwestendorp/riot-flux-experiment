@@ -23,7 +23,10 @@ function SlideDeckStore(args) {
 
       // ADD SLIDE
       case 'slides:add':
-        self.currentSlideIndex = slideStore.getSlides().length-1;
+        slideDispatcher.waitFor([slideStore.dispatchToken], 'slides:add', function(){
+          self.currentSlideIndex = slideStore.getSlides().length-1;
+          self.trigger('slides:changed');
+        });
         break;
 
       // EDIT MODE TOGGLE
