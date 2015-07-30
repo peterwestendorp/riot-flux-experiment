@@ -101,20 +101,6 @@ var fluks = (function(){
           _handleID = 0,
           _registeredCallbacks = [];
 
-      // forEach(arr, fn, obj)
-      self.forEach = function(arr, fn, thisObj) {
-        var i = 0, l = arr && arr.length || 0;
-        if(thisObj){
-          for(; i < l; ++i){
-            fn.call(thisObj, arr[i], i, arr);
-          }
-        }else{
-          for(; i < l; ++i){
-            fn(arr[i], i, arr);
-          }
-        }
-      };
-
       // register(fn) returns handle
       self.register = function(cb){
         var deferred = Q.defer(),
@@ -137,7 +123,7 @@ var fluks = (function(){
       // unregister(obj)
       self.unregister = function(handle){
         var location = false;
-        self.forEach(_registeredCallbacks, function(obj, i){
+        _registeredCallbacks.forEach(function(obj, i){
           if(obj.id ===  handle.id){
             location = i;
             return false;
@@ -156,7 +142,7 @@ var fluks = (function(){
           return;
         }
 
-        self.forEach(_registeredCallbacks, function(obj, i){
+        _registeredCallbacks.forEach(function(obj, i){
           obj.callback(args);
         });
       };
@@ -165,14 +151,14 @@ var fluks = (function(){
       self.waitFor = function(handles, actionType, cb){
         var promises = [];
 
-        self.forEach(handles, function(handle){
+        handles.forEach(function(handle){
           promises.push(handle.promise);
         });
 
         Q.all(promises).then(function(){
           var actionTypeMatch = false;
 
-          self.forEach(arguments[0], function(arg){
+          arguments[0].forEach(function(arg){
             if(arg === actionType){
               actionTypeMatch = true;
             }
