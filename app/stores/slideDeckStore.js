@@ -1,5 +1,5 @@
 function SlideDeckStore(args) {
-  riot.observable(this); // Riot event emitter
+  fluks.observable(this); // fluks event emitter
 
   var self = this,
       slideDispatcher = args.dispatcher,
