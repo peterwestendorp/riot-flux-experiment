@@ -1,5 +1,5 @@
 function SlideStore(args) {
-  riot.observable(this); // Riot event emitter
+  fluks.observable(this); // fluks event emitter
 
   var _save,
       self = this,

@@ -13,8 +13,10 @@ module.exports = function(karma) {
     // list of files / patterns to load in the browser
     files: [
       'node_modules/riot/riot.js',
-      'node_modules/riotcontrol/riotcontrol.js',
+      'node_modules/q/q.js',
+      'app/fluks.js',
       'app/stores/slideStore.js',
+      'app/stores/slideDeckStore.js',
       '**/*.tag',
       'test/*.spec.js',
     ],

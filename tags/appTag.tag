@@ -5,7 +5,7 @@
              slidedeckstore="{ slideDeckStore }"></slidedeck>
   <script>
     this.firebaseRef = new Firebase("https://flux-test.firebaseio.com/");
-    this.slideDispatcher = new Dispatcher();
+    this.slideDispatcher = new fluks.Dispatcher();
     this.slideStore = new SlideStore({
       dispatcher: this.slideDispatcher,
       fbRef: this.firebaseRef
