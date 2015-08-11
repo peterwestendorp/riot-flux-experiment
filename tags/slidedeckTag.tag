@@ -17,10 +17,6 @@
       self.getSlides()
     })
 
-    slideStore.on('slides:changed', function(){
-      self.getSlides()
-    })
-
     slideDeckStore.on('slides:changed', function(){
       self.getSlides()
     })

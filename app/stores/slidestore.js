@@ -8,17 +8,22 @@ function SlideStore(args) {
       slideFactory = [
         { title: 'Slide 1', content: 'Content 1', color: '#FF0000' },
         { title: 'Slide 2', content: 'Content 2', color: '#00FF00' }
-      ];
+      ],
+      history = [];
 
   // LOAD SLIDES
   firebaseRef.child("slides").on("value", function(snapshot) {
-    self.slides = snapshot.val() || slideFactory;
+    var slides = snapshot.val() || slideFactory;
+
+    slides.forEach(function(slide, i){
+      self.slides = (i === 0) ? Immutable.List.of(slide) : self.slides.push(slide);
+    });
     self.trigger('slides:loaded');
   });
 
   // GET SLIDES
   self.getSlides = function(){
-    return self.slides;
+    return self.slides.toArray();
   };
 
   self.dispatchToken = slideDispatcher.register(function(payload) {
@@ -26,25 +31,36 @@ function SlideStore(args) {
 
       // ADD SLIDE
       case 'slides:add':
-        self.slides.push({title: 'New Slide', content: 'Lorum Ipsum...', color: '#0000FF'});
+        history.push(self.slides)
+        self.slides = self.slides.push({title: 'New Slide', content: 'Lorum Ipsum...', color: '#0000FF'});
         _save(payload.actionType);
         break;
 
       // REMOVE SLIDE
       case 'slides:remove':
-        self.slides.splice(payload.index, 1);
+        history.push(self.slides)
+        self.slides = self.slides.splice(payload.index, 1);
         _save(payload.actionType);
         break;
 
       // EDIT SLIDE
       case 'slides:edit:title':
-        self.slides[payload.index]['title'] = payload.title;
+        history.push(self.slides)
+        self.slides = self.slides[payload.index]['title'] = payload.title;
         _save(payload.actionType);
         break;
 
       case 'slides:edit:content':
-        self.slides[payload.index]['content'] = payload.content;
+        history.push(self.slides)
+        self.slides = self.slides[payload.index]['content'] = payload.content;
         _save(payload.actionType);
+        break;
+
+      // UNDO ACTION
+      case 'slides:undo':
+        if(history.length > 0){
+          self.slides = history.pop()
+        }
         break;
 
     }
@@ -53,7 +69,7 @@ function SlideStore(args) {
   // SAVE SLIDES
   _save = function(actionType){
     firebaseRef.set({
-      slides: self.slides
+      slides: self.slides.toJSON()
     }, function(error) {
       if (error) {
         console.error("data could not be saved." + error);
