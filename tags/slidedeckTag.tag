@@ -44,7 +44,7 @@
       });
     }
 
-    toggleEditMode() {
+    toggleEditMode(){
       slideDispatcher.dispatch({
         actionType: 'slides:toggle-edit-mode'
       })
