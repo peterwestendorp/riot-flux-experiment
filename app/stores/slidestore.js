@@ -26,6 +26,10 @@ function SlideStore(args) {
     return self.slides.toArray();
   };
 
+  self.hasHistory = function(){
+    return history.length > 0;
+  };
+
   self.dispatchToken = slideDispatcher.register(function(payload) {
     switch(payload.actionType){
 
