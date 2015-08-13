@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/peterwestendorp/riot-flux-experiment",
   "devDependencies": {
+    "immutable": "^3.7.4",
     "karma": "^0.12.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.1.5",

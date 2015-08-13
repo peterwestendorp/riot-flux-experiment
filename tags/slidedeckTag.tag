@@ -3,6 +3,7 @@
 
   <button onclick="{ toggleEditMode }"
           class="{ active: getEditMode() }">Edit mode</button>
+  <button if="{ slideStore.hasHistory() }" onclick="{ undo }">Undo</button>
   <button if="{ getEditMode() }" onclick="{ add }">Add</button>
   <button onclick="{showPrev}">Prev</button>
   <button onclick="{showNext}">Next</button>
@@ -14,10 +15,6 @@
         slideDispatcher = opts.slidedispatcher
 
     slideStore.on('slides:loaded', function(){
-      self.getSlides()
-    })
-
-    slideStore.on('slides:changed', function(){
       self.getSlides()
     })
 
@@ -47,6 +44,12 @@
     toggleEditMode(){
       slideDispatcher.dispatch({
         actionType: 'slides:toggle-edit-mode'
+      })
+    }
+
+    undo(){
+      slideDispatcher.dispatch({
+        actionType: 'slides:undo'
       })
     }
 
